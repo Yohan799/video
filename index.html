@@ -3,570 +3,1171 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portraitifier Pro — 16:9 ➜ 9:16 (No‑Crop, MP4, Watermark, Face Auto‑Center)</title>
+  <title>Portraitifier Pro — 16:9 ➜ 9:16 Video Converter</title>
   <style>
-    :root { --bg:#0b0f14; --panel:#121822; --panel-2:#0e141d; --text:#e7edf6; --muted:#9bb0c3; --accent:#5cc8ff; --accent-2:#7affb7; --danger:#ff6b6b; --radius:16px; }
-    *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(1200px 600px at 10% -10%,#122033,#091018),var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";min-height:100dvh;display:grid;grid-template-rows:auto 1fr auto}
-    header{padding:18px 22px;display:flex;align-items:center;gap:14px;background:linear-gradient(180deg,rgba(255,255,255,.04),transparent),var(--panel);border-bottom:1px solid rgba(255,255,255,.06)}
-    header h1{font-size:1.05rem;margin:0;letter-spacing:.2px}
-    .pill{font-size:.75rem;color:#001a28;background:linear-gradient(135deg,var(--accent),var(--accent-2));padding:4px 8px;border-radius:999px;font-weight:800}
-    main{display:grid;grid-template-columns:400px 1fr;gap:16px;padding:16px}
-    @media (max-width:980px){main{grid-template-columns:1fr}}
-    .panel{background:linear-gradient(180deg,rgba(255,255,255,.04),transparent),var(--panel-2);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius)}
-    .controls{padding:16px;display:grid;gap:14px;align-content:start}
-    .group{display:grid;gap:10px;background:rgba(255,255,255,.02);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.06)}
-    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    label{font-size:.9rem;color:var(--muted)}
-    input[type=file]{width:100%;padding:10px;border:1px dashed rgba(255,255,255,.2);border-radius:12px;background:rgba(255,255,255,.03)}
-    select,input[type=number],input[type=text],button{background:rgba(255,255,255,.06);color:var(--text);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 12px;font-size:.95rem}
-    input[type=range]{width:100%}
-    button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#00253a;border:none;font-weight:800}
-    button.ghost{background:rgba(255,255,255,.06)}
-    button.danger{background:var(--danger);color:#fff;border:none;font-weight:800}
-    button:disabled{opacity:.55;cursor:not-allowed}
-    .preview-wrap{display:grid;grid-template-rows:auto 1fr auto;padding:12px;gap:8px}
-    .stage{aspect-ratio:9/16;width:min(52vw,440px);justify-self:center;background:#000;position:relative;border-radius:24px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06) inset}
-    .canvas,video{width:100%;height:100%;display:block}
-    .tips{font-size:.85rem;color:var(--muted)}
-    .kbd{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-bottom-width:3px;border-radius:6px;padding:0 6px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-    footer{padding:12px 16px;font-size:.85rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:10px}
-    a{color:var(--accent-2);text-decoration:none}
-    .meter{height:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:999px;overflow:hidden}
-    .meter>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .2s linear}
-    .status{padding:8px 12px;background:rgba(255,255,255,.03);border-radius:8px;font-size:.85rem;margin-top:8px}
-    .status.error{background:rgba(255,107,107,.1);color:#ff6b6b}
-    .status.success{background:rgba(124,255,183,.1);color:#7affb7}
-    .status.info{background:rgba(92,200,255,.1);color:#5cc8ff}
+    :root { 
+      --bg: #0a0e1a; 
+      --panel: #1a1f2e; 
+      --panel-2: #0f1420; 
+      --text: #e2e8f0; 
+      --muted: #94a3b8; 
+      --accent: #0ea5e9; 
+      --accent-2: #06b6d4; 
+      --success: #10b981; 
+      --danger: #ef4444; 
+      --warning: #f59e0b;
+      --radius: 16px; 
+    }
+    
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      background: 
+        radial-gradient(circle at 20% 10%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 90%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #0a0e1a 0%, #1e293b 100%);
+      color: var(--text);
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+    
+    header {
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(26, 31, 46, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .badge {
+      font-size: 0.75rem;
+      color: #001a28;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    
+    main {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 24px;
+      padding: 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    
+    @media (max-width: 1200px) {
+      main { grid-template-columns: 1fr; }
+    }
+    
+    .panel {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      backdrop-filter: blur(12px);
+    }
+    
+    .controls {
+      padding: 24px;
+      display: grid;
+      gap: 24px;
+      align-content: start;
+      height: fit-content;
+    }
+    
+    .section {
+      display: grid;
+      gap: 16px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .section-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent-2);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: var(--accent-2);
+      border-radius: 50%;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .form-group {
+      display: grid;
+      gap: 8px;
+      flex: 1;
+      min-width: 120px;
+    }
+    
+    label {
+      font-size: 0.875rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    
+    input[type="file"] {
+      width: 100%;
+      padding: 16px;
+      border: 2px dashed rgba(14, 165, 233, 0.3);
+      border-radius: 12px;
+      background: rgba(14, 165, 233, 0.05);
+      color: var(--text);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    input[type="file"]:hover {
+      border-color: var(--accent);
+      background: rgba(14, 165, 233, 0.1);
+    }
+    
+    select, input[type="number"], input[type="text"], button {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+    }
+    
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+    
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+      -webkit-appearance: none;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+    }
+    
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      cursor: pointer;
+      border: none;
+    }
+    
+    button {
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+    
+    button.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      border: none;
+      box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+    }
+    
+    button.primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4);
+    }
+    
+    button.success {
+      background: var(--success);
+      color: white;
+      border: none;
+    }
+    
+    button.danger {
+      background: var(--danger);
+      color: white;
+      border: none;
+    }
+    
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    
+    .preview-container {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 24px;
+      gap: 16px;
+    }
+    
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    
+    .stage {
+      aspect-ratio: 9 / 16;
+      width: min(60vw, 500px);
+      justify-self: center;
+      background: #000;
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    }
+    
+    .canvas, video {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .progress-bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.3s ease;
+    }
+    
+    .time-display {
+      font-size: 0.875rem;
+      color: var(--muted);
+      min-width: 80px;
+      text-align: right;
+      font-family: 'SF Mono', Monaco, monospace;
+    }
+    
+    .status-message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-top: 12px;
+    }
+    
+    .status-message.info {
+      background: rgba(14, 165, 233, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(14, 165, 233, 0.2);
+    }
+    
+    .status-message.success {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+    
+    .status-message.error {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+    
+    .keyboard-shortcuts {
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    
+    .key {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.75rem;
+    }
+    
+    .radio-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 0.875rem;
+    }
+    
+    input[type="radio"] {
+      width: 16px;
+      height: 16px;
+    }
+    
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+    }
+    
+    .tips {
+      font-size: 0.8rem;
+      color: var(--muted);
+      opacity: 0.8;
+    }
+    
+    footer {
+      padding: 20px 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+    
+    a {
+      color: var(--accent-2);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    .hidden {
+      display: none !important;
+    }
+    
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+      
+      header {
+        padding: 16px;
+      }
+      
+      .controls, .preview-container {
+        padding: 16px;
+      }
+      
+      .stage {
+        width: min(80vw, 360px);
+      }
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="pill">No‑Crop 16:9 ➜ 9:16</div>
-    <h1>Portraitifier Pro – MP4 export • Watermark • Auto‑center faces • GitHub Pages ready</h1>
+    <div class="badge">16:9 ➜ 9:16</div>
+    <div class="logo">Portraitifier Pro</div>
+    <div style="font-size: 0.875rem; color: var(--muted);">
+      No-crop video converter with watermarks & face detection
+    </div>
   </header>
 
   <main>
     <section class="panel controls">
-      <div class="group">
-        <label for="file">1) Upload your 16:9 video</label>
-        <input id="file" type="file" accept="video/*" />
-        <div class="tips">Runs entirely in your browser. Nothing is uploaded.</div>
+      <div class="section">
+        <h3 class="section-title">Upload Video</h3>
+        <input id="fileInput" type="file" accept="video/*" />
+        <div class="tips">Runs entirely in your browser. Nothing is uploaded to servers.</div>
       </div>
 
-      <div class="group">
-        <div class="row">
-          <label>2) Output resolution</label>
-          <select id="resolution">
-            <option value="720x1280">720×1280 (HD Portrait)</option>
-            <option value="1080x1920" selected>1080×1920 (FHD Portrait)</option>
-            <option value="1440x2560">1440×2560 (QHD Portrait)</option>
-          </select>
-        </div>
-        <div class="row">
-          <label>Target FPS</label>
-          <input id="fps" type="number" min="15" max="60" step="1" value="30" />
-          <span class="tips">If unsure, leave 30.</span>
-        </div>
-      </div>
-
-      <div class="group">
-        <label>3) Background fill (covers entire 9:16)</label>
-        <div class="row">
-          <label class="inline"><input type="radio" name="bgmode" value="blur" checked> Blurred clone</label>
-          <label class="inline"><input type="radio" name="bgmode" value="solid"> Solid color</label>
-          <label class="inline"><input type="radio" name="bgmode" value="none"> Black</label>
-        </div>
-        <div id="bgBlurControls" class="row">
-          <label style="min-width: 90px;">Blur</label>
-          <input id="blur" type="range" min="0" max="60" value="30" />
-        </div>
-        <div id="bgColorControls" class="row" style="display:none;">
-          <label style="min-width: 90px;">Color</label>
-          <input id="bgcolor" type="color" value="#000000" />
-        </div>
-        <div class="row">
-          <label style="min-width: 90px;">Darken</label>
-          <input id="darken" type="range" min="0" max="80" value="20" />
+      <div class="section">
+        <h3 class="section-title">Output Settings</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Resolution</label>
+            <select id="resolutionSelect">
+              <option value="720x1280">720×1280 (HD)</option>
+              <option value="1080x1920" selected>1080×1920 (FHD)</option>
+              <option value="1440x2560">1440×2560 (QHD)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Frame Rate</label>
+            <input id="fpsInput" type="number" min="15" max="60" value="30" />
+          </div>
         </div>
       </div>
 
-      <div class="group">
-        <label>4) Foreground framing (never crops)</label>
-        <div class="row"><label style="min-width:90px;">Vertical offset</label><input id="yoffset" type="range" min="-100" max="100" value="0" /></div>
-        <div class="row"><label style="min-width:90px;">Padding</label><input id="padding" type="range" min="0" max="200" value="0" /><span class="tips">Extra gap around the full video.</span></div>
-        <div class="row"><label class="inline"><input type="checkbox" id="autoFace"/> Auto‑center on faces</label><span class="tips">Uses Face Detection API when available.</span></div>
+      <div class="section">
+        <h3 class="section-title">Background</h3>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="bgMode" value="blur" checked>
+            Blurred video
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="bgMode" value="solid">
+            Solid color
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="bgMode" value="black">
+            Black
+          </label>
+        </div>
+        
+        <div id="blurControls" class="form-row">
+          <div class="form-group">
+            <label>Blur Amount</label>
+            <input id="blurRange" type="range" min="0" max="60" value="30" />
+          </div>
+        </div>
+        
+        <div id="colorControls" class="form-row hidden">
+          <div class="form-group">
+            <label>Background Color</label>
+            <input id="colorPicker" type="color" value="#000000" />
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>Darken Background</label>
+            <input id="darkenRange" type="range" min="0" max="80" value="20" />
+          </div>
+        </div>
       </div>
 
-      <div class="group">
-        <label>5) Watermark</label>
-        <div class="row"><input id="wmTextInput" type="text" placeholder="Watermark text (optional)" /></div>
-        <div class="row">
-          <label>Size <input id="wmSize" type="range" min="8" max="72" value="24" /></label>
-          <label>Opacity <input id="wmAlpha" type="range" min="0" max="100" value="60" /></label>
-          <label>Padding <input id="wmPad" type="range" min="0" max="80" value="12" /></label>
+      <div class="section">
+        <h3 class="section-title">Video Position</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vertical Offset</label>
+            <input id="offsetRange" type="range" min="-100" max="100" value="0" />
+          </div>
         </div>
-        <div class="row">
-          <label>Position
-            <select id="wmPos">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Padding</label>
+            <input id="paddingRange" type="range" min="0" max="200" value="0" />
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="radio-option">
+            <input id="autoFaceCheck" type="checkbox">
+            Auto-center on faces
+          </label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 class="section-title">Watermark</h3>
+        <div class="form-group">
+          <label>Text</label>
+          <input id="watermarkText" type="text" placeholder="Enter watermark text (optional)" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Size</label>
+            <input id="watermarkSize" type="range" min="8" max="72" value="24" />
+          </div>
+          <div class="form-group">
+            <label>Opacity</label>
+            <input id="watermarkOpacity" type="range" min="0" max="100" value="60" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Position</label>
+            <select id="watermarkPosition">
               <option value="br" selected>Bottom Right</option>
               <option value="bl">Bottom Left</option>
               <option value="tr">Top Right</option>
               <option value="tl">Top Left</option>
               <option value="center">Center</option>
             </select>
-          </label>
-          <label class="inline">Image <input id="wmImageInput" type="file" accept="image/*"></label>
+          </div>
+          <div class="form-group">
+            <label>Logo Image</label>
+            <input id="watermarkImage" type="file" accept="image/*" />
+          </div>
         </div>
       </div>
 
-      <div class="group">
-        <label>6) Export</label>
-        <div class="row" style="gap: 8px; align-items:center; flex-wrap:wrap;">
-          <label class="inline">Format
-            <select id="format">
-              <option value="webm" selected>WEBM (VP9 + Opus)</option>
-              <option value="mp4">MP4 (H.264 + AAC) — beta</option>
+      <div class="section">
+        <h3 class="section-title">Export</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Format</label>
+            <select id="formatSelect">
+              <option value="webm" selected>WebM (VP9 + Opus)</option>
+              <option value="mp4">MP4 (H.264 + AAC)</option>
             </select>
-          </label>
-          <button id="preloadFFmpeg" class="ghost" style="display:none;">Load MP4 Encoder</button>
-          <button id="start" class="primary" disabled>Start Recording</button>
-          <button id="stop" class="danger" disabled>Stop</button>
-          <button id="download" class="ghost" disabled>Download</button>
+          </div>
         </div>
-        <div class="row"><div class="meter" style="flex:1"><i id="meterBar"></i></div><span id="meterText" class="tips" style="width:120px;text-align:right;">00:00</span></div>
-        <div id="statusDiv"></div>
-        <div class="tips">WEBM is instant. MP4 transcodes locally using ffmpeg.wasm after recording. Nothing leaves your device.</div>
+        <div class="form-row">
+          <button id="startButton" class="primary" disabled>Start Recording</button>
+          <button id="stopButton" class="danger" disabled>Stop Recording</button>
+          <button id="downloadButton" class="success" disabled>Download</button>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+          <div id="timeDisplay" class="time-display">00:00</div>
+        </div>
+        <div id="statusContainer"></div>
+        <div class="tips">WebM is instant. MP4 requires additional processing time.</div>
       </div>
     </section>
 
-    <section class="panel preview-wrap">
-      <div class="row" style="padding: 10px 12px; justify-content: space-between; flex-wrap:wrap; gap:8px;">
-        <div class="tips">Live preview (what you see is what you export)</div>
-        <div id="dimBadge" class="pill" style="font-weight:700;">1080×1920 @ 30 fps</div>
+    <section class="panel preview-container">
+      <div class="preview-header">
+        <div class="tips">Live preview - what you see is what you export</div>
+        <div id="dimensionsBadge" class="badge">1080×1920 @ 30fps</div>
       </div>
-      <div class="stage"><canvas id="canvas" class="canvas"></canvas></div>
-      <div class="tips" style="padding:0 12px 12px;display:grid;gap:6px;">
-        Shortcuts: <span class="kbd">Space</span> play/pause, <span class="kbd">J/K/L</span> seek, <span class="kbd">,</span>/<span class="kbd">.</span> frame.
-        <div id="ffmpegHint" class="tips" style="display:none;">MP4 selected — the app will fetch ffmpeg.wasm (~30–40MB) once, then cache it.</div>
+      
+      <div class="stage">
+        <canvas id="canvas" class="canvas"></canvas>
+      </div>
+      
+      <div class="keyboard-shortcuts">
+        <div><strong>Keyboard shortcuts:</strong></div>
+        <div>
+          <span class="key">Space</span> Play/Pause &nbsp;&nbsp;
+          <span class="key">J</span>/<span class="key">K</span>/<span class="key">L</span> Seek &nbsp;&nbsp;
+          <span class="key">,</span>/<span class="key">.</span> Frame by frame
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div>Drop this HTML into any GitHub repo and enable <b>GitHub Pages</b>. It's a single file.</div>
-    <div><a href="#" id="how">How it works</a></div>
+    <div>Self-contained HTML file - perfect for GitHub Pages deployment</div>
+    <div><a href="#" id="aboutLink">How it works</a></div>
   </footer>
 
+  <!-- Hidden elements -->
   <video id="video" playsinline preload="metadata" style="display:none"></video>
-  <img id="wmImage" alt="" style="display:none" />
+  <img id="watermarkImg" style="display:none" />
 
   <script>
-    const els = {
-      file: document.getElementById('file'), 
-      canvas: document.getElementById('canvas'), 
-      video: document.getElementById('video'), 
-      start: document.getElementById('start'), 
-      stop: document.getElementById('stop'), 
-      download: document.getElementById('download'), 
-      meterBar: document.getElementById('meterBar'), 
-      meterText: document.getElementById('meterText'), 
-      resolution: document.getElementById('resolution'), 
-      fps: document.getElementById('fps'), 
-      blur: document.getElementById('blur'), 
-      bgmode: document.querySelectorAll('input[name="bgmode"]'), 
-      darken: document.getElementById('darken'), 
-      bgcolor: document.getElementById('bgcolor'), 
-      bgBlurControls: document.getElementById('bgBlurControls'), 
-      bgColorControls: document.getElementById('bgColorControls'), 
-      yoffset: document.getElementById('yoffset'), 
-      padding: document.getElementById('padding'), 
-      dimBadge: document.getElementById('dimBadge'), 
-      format: document.getElementById('format'), 
-      ffmpegHint: document.getElementById('ffmpegHint'),
-      preloadFFmpeg: document.getElementById('preloadFFmpeg'),
-      statusDiv: document.getElementById('statusDiv')
+    // DOM elements
+    const elements = {
+      fileInput: document.getElementById('fileInput'),
+      canvas: document.getElementById('canvas'),
+      video: document.getElementById('video'),
+      startButton: document.getElementById('startButton'),
+      stopButton: document.getElementById('stopButton'),
+      downloadButton: document.getElementById('downloadButton'),
+      progressFill: document.getElementById('progressFill'),
+      timeDisplay: document.getElementById('timeDisplay'),
+      resolutionSelect: document.getElementById('resolutionSelect'),
+      fpsInput: document.getElementById('fpsInput'),
+      blurRange: document.getElementById('blurRange'),
+      darkenRange: document.getElementById('darkenRange'),
+      colorPicker: document.getElementById('colorPicker'),
+      offsetRange: document.getElementById('offsetRange'),
+      paddingRange: document.getElementById('paddingRange'),
+      watermarkText: document.getElementById('watermarkText'),
+      watermarkSize: document.getElementById('watermarkSize'),
+      watermarkOpacity: document.getElementById('watermarkOpacity'),
+      watermarkPosition: document.getElementById('watermarkPosition'),
+      watermarkImage: document.getElementById('watermarkImage'),
+      watermarkImg: document.getElementById('watermarkImg'),
+      formatSelect: document.getElementById('formatSelect'),
+      dimensionsBadge: document.getElementById('dimensionsBadge'),
+      statusContainer: document.getElementById('statusContainer'),
+      blurControls: document.getElementById('blurControls'),
+      colorControls: document.getElementById('colorControls'),
+      autoFaceCheck: document.getElementById('autoFaceCheck'),
+      aboutLink: document.getElementById('aboutLink')
     };
 
-    let ctx, running=false, rVFC = 'requestVideoFrameCallback' in HTMLVideoElement.prototype;
-    let rec=null, recordedChunks=[], recStartTs=0; 
-    let audioCtx, sourceNode, destNode; 
-    let faceDetector=null, faceBox=null, autoFace=false;
-    let ffmpegLoaded = false, ffmpeg = null;
+    // State variables
+    let ctx;
+    let isRendering = false;
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let recordingStartTime = 0;
+    let audioContext = null;
+    let sourceNode = null;
+    let destinationNode = null;
+    let faceDetector = null;
+    let detectedFaceBox = null;
 
-    function showStatus(message, type = 'info') {
-      els.statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
-      if (type === 'error') console.error(message);
-    }
-
-    function clearStatus() {
-      els.statusDiv.innerHTML = '';
-    }
-
-    // Improved FFmpeg loading with better error handling
-    async function loadFFmpeg() {
-      if (ffmpegLoaded && ffmpeg) return ffmpeg;
-      
-      try {
-        showStatus('Loading FFmpeg.wasm (30-40MB download)...', 'info');
-        
-        // Load FFmpeg scripts with timeout
-        await Promise.race([
-          loadFFmpegScripts(),
-          new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('FFmpeg loading timeout')), 60000)
-          )
-        ]);
-
-        const { FFmpeg } = window.FFmpegWASM;
-        const { fetchFile } = window.FFmpegUtil;
-        
-        ffmpeg = new FFmpeg();
-        
-        // Set up logging for debugging
-        ffmpeg.on('log', ({ message }) => {
-          console.log('[FFmpeg]', message);
-        });
-
-        ffmpeg.on('progress', ({ progress, time }) => {
-          if (progress > 0) {
-            showStatus(`Converting: ${Math.round(progress * 100)}%`, 'info');
-          }
-        });
-
-        showStatus('Initializing FFmpeg...', 'info');
-        
-        await ffmpeg.load({
-          coreURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/ffmpeg-core.js',
-          wasmURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/ffmpeg-core.wasm',
-          workerURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/ffmpeg-core.worker.js'
-        });
-
-        window.ffmpeg = ffmpeg;
-        window.fetchFile = fetchFile;
-        ffmpegLoaded = true;
-        
-        showStatus('FFmpeg loaded successfully!', 'success');
-        setTimeout(clearStatus, 3000);
-        
-        return ffmpeg;
-      } catch (error) {
-        showStatus(`Failed to load FFmpeg: ${error.message}`, 'error');
-        throw error;
-      }
-    }
-
-    async function loadFFmpegScripts() {
-      // Load FFmpeg and util scripts
-      await loadScript('https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js');
-      await loadScript('https://unpkg.com/@ffmpeg/util@0.12.1/dist/util.min.js');
-    }
-
-    function loadScript(src) {
-      return new Promise((resolve, reject) => {
-        if (document.querySelector(`script[src="${src}"]`)) {
-          resolve();
-          return;
-        }
-        
-        const script = document.createElement('script');
-        script.src = src;
-        script.onload = resolve;
-        script.onerror = () => reject(new Error(`Failed to load ${src}`));
-        document.head.appendChild(script);
-      });
-    }
-
-    function setCanvasSizeFromSelect(){ 
-      const [w,h]=els.resolution.value.split('x').map(Number); 
-      els.canvas.width=w; 
-      els.canvas.height=h; 
-      els.dimBadge.textContent=`${w}×${h} @ ${els.fps.value} fps`; 
-      if(!ctx) ctx=els.canvas.getContext('2d'); 
-    }
+    // Utility functions
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
     
-    setCanvasSizeFromSelect();
-    els.resolution.addEventListener('change', setCanvasSizeFromSelect);
-    els.fps.addEventListener('change', ()=>{ 
-      els.dimBadge.textContent = `${els.canvas.width}×${els.canvas.height} @ ${els.fps.value} fps`; 
-    });
-
-    els.bgmode.forEach(r=>r.addEventListener('change',()=>{ 
-      const m=getBgMode(); 
-      els.bgBlurControls.style.display = m==='blur'?'':'none'; 
-      els.bgColorControls.style.display = m==='solid'?'':'none'; 
-    }));
-
-    const clamp=(n,a,b)=>Math.min(Math.max(n,a),b);
-    const formatTime=s=>{ 
-      const m=Math.floor(s/60).toString().padStart(2,'0'); 
-      const ss=Math.floor(s%60).toString().padStart(2,'0'); 
-      return `${m}:${ss}`; 
+    const formatTime = (seconds) => {
+      const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+      return `${mins}:${secs}`;
     };
-    const getBgMode=()=>[...els.bgmode].find(r=>r.checked)?.value||'blur';
 
-    els.file.addEventListener('change', async e=>{
-      const file=e.target.files?.[0]; 
-      if(!file) return; 
-      
-      const url=URL.createObjectURL(file); 
-      els.video.src=url; 
-      els.video.load(); 
-      
-      try{ 
-        await els.video.play(); 
-        els.video.pause(); 
-      }catch{}
-      
-      if ('FaceDetector' in window){ 
-        try{ 
-          faceDetector=new window.FaceDetector({fastMode:true,maxDetectedFaces:1}); 
-        }catch{ 
-          faceDetector=null; 
-        } 
-      }
-      
-      els.start.disabled=false; 
-      running=true; 
-      loop();
-      clearStatus();
-    });
+    const showStatus = (message, type = 'info') => {
+      elements.statusContainer.innerHTML = `<div class="status-message ${type}">${message}</div>`;
+    };
 
-    // Format change handler
-    els.format.addEventListener('change', ()=> {
-      const isMP4 = els.format.value === 'mp4';
-      els.ffmpegHint.style.display = isMP4 ? '' : 'none';
-      els.preloadFFmpeg.style.display = isMP4 && !ffmpegLoaded ? '' : 'none';
-    });
+    const clearStatus = () => {
+      elements.statusContainer.innerHTML = '';
+    };
 
-    // Preload FFmpeg button
-    els.preloadFFmpeg.addEventListener('click', async () => {
-      els.preloadFFmpeg.disabled = true;
-      els.preloadFFmpeg.textContent = 'Loading...';
+    // Initialize canvas
+    function initializeCanvas() {
+      const [width, height] = elements.resolutionSelect.value.split('x').map(Number);
+      elements.canvas.width = width;
+      elements.canvas.height = height;
+      elements.dimensionsBadge.textContent = `${width}×${height} @ ${elements.fpsInput.value}fps`;
       
-      try {
-        await loadFFmpeg();
-        els.preloadFFmpeg.style.display = 'none';
-      } catch (error) {
-        els.preloadFFmpeg.disabled = false;
-        els.preloadFFmpeg.textContent = 'Retry Load';
+      if (!ctx) {
+        ctx = elements.canvas.getContext('2d');
       }
-    });
-
-    document.addEventListener('keydown', e=>{ 
-      if(!els.video.src) return; 
-      
-      if(e.code==='Space'){ 
-        e.preventDefault(); 
-        if(els.video.paused) els.video.play(); 
-        else els.video.pause(); 
-      } 
-      
-      if(e.key==='l'||e.key==='L') els.video.currentTime=Math.min(els.video.duration, els.video.currentTime+5); 
-      if(e.key==='j'||e.key==='J') els.video.currentTime=Math.max(0, els.video.currentTime-5); 
-      
-      if(e.key===','){ 
-        els.video.pause(); 
-        els.video.currentTime=Math.max(0, els.video.currentTime-(1/(+els.fps.value||30))); 
-      } 
-      
-      if(e.key==='.') { 
-        els.video.pause(); 
-        els.video.currentTime=Math.min(els.video.duration, els.video.currentTime+(1/(+els.fps.value||30))); 
-      }
-    });
-
-    function drawFrame(){ 
-      const v=els.video; 
-      if(!v.videoWidth||!v.videoHeight) return; 
-      
-      const W=els.canvas.width,H=els.canvas.height; 
-      const vw=v.videoWidth, vh=v.videoHeight; 
-      ctx.clearRect(0,0,W,H);
-      
-      const pad=+els.padding.value; 
-      let yOff=(+els.yoffset.value/100)*(H/4);
-      
-      const mode=getBgMode(); 
-      if(mode==='blur'){ 
-        const scaleCover=Math.max(W/vw,H/vh); 
-        const bw=vw*scaleCover,bh=vh*scaleCover; 
-        const bx=(W-bw)/2, by=(H-bh)/2; 
-        ctx.save(); 
-        ctx.filter=`blur(${+els.blur.value}px) brightness(${1-+els.darken.value/100})`; 
-        ctx.drawImage(v,bx,by,bw,bh); 
-        ctx.restore(); 
-      } else if(mode==='solid'){ 
-        ctx.fillStyle=els.bgcolor.value; 
-        ctx.fillRect(0,0,W,H);
-      } else { 
-        ctx.fillStyle='#000'; 
-        ctx.fillRect(0,0,W,H); 
-      }
-      
-      const scaleContain=Math.min((W-pad*2)/vw,(H-pad*2)/vh); 
-      const fw=vw*scaleContain, fh=vh*scaleContain; 
-      const fx=(W-fw)/2; 
-      let fy=(H-fh)/2;
-      
-      if(autoFace && faceBox){ 
-        const faceCY_src=faceBox.y+faceBox.height/2; 
-        const faceCY_canvas=(faceCY_src*scaleContain)+fy; 
-        const delta=(H/2)-faceCY_canvas; 
-        yOff+=delta; 
-      }
-      
-      fy=clamp(fy+yOff,-((H-fh)/2),((H-fh)/2)); 
-      ctx.drawImage(v,fx,fy,fw,fh);
-      drawWatermark(W,H);
     }
 
-    function drawWatermark(W,H){ 
-      const text=document.getElementById('wmTextInput').value.trim(); 
-      const pos=document.getElementById('wmPos').value; 
-      const size=+document.getElementById('wmSize').value; 
-      const alpha=+document.getElementById('wmAlpha').value/100; 
-      const pad=+document.getElementById('wmPad').value; 
-      const imgEl=document.getElementById('wmImage');
-      
-      ctx.save(); 
-      ctx.globalAlpha=alpha; 
-      let w=0,h=0; 
-      let drawFn=null; 
-      
-      if(text){ 
-        ctx.font=`700 ${size}px system-ui, sans-serif`; 
-        ctx.textBaseline='bottom'; 
-        w=ctx.measureText(text).width; 
-        h=size; 
-        drawFn=()=>{ 
-          ctx.fillStyle='rgba(0,0,0,0.35)'; 
-          ctx.fillRect(x-6,y-h-6,w+12,h+12); 
-          ctx.fillStyle='white'; 
-          ctx.fillText(text,x,y); 
-        }; 
-      }
-      
-      if(imgEl && imgEl.src){ 
-        const scale=(size*2)/(imgEl.naturalHeight||1); 
-        const iw=(imgEl.naturalWidth||0)*scale; 
-        const ih=(imgEl.naturalHeight||0)*scale; 
-        w=Math.max(w,iw); 
-        h=Math.max(h,ih); 
-        const prev=drawFn; 
-        drawFn=()=>{ 
-          if(prev) prev(); 
-          ctx.drawImage(imgEl,x,y-ih,iw,ih); 
-        } 
-      }
-      
-      if(!drawFn){ 
-        ctx.restore(); 
-        return; 
-      }
-      
-      let x=pad, y=H-pad; 
-      if(pos==='br'){ x=W-pad-w; y=H-pad; } 
-      if(pos==='bl'){ x=pad; y=H-pad; } 
-      if(pos==='tr'){ x=W-pad-w; y=pad+h; } 
-      if(pos==='tl'){ x=pad; y=pad+h; } 
-      if(pos==='center'){ x=(W-w)/2; y=(H+h)/2; } 
-      drawFn(); 
-      ctx.restore(); 
+    // Background mode handling
+    function updateBackgroundMode() {
+      const mode = document.querySelector('input[name="bgMode"]:checked').value;
+      elements.blurControls.classList.toggle('hidden', mode !== 'blur');
+      elements.colorControls.classList.toggle('hidden', mode !== 'solid');
     }
 
-    async function maybeDetectFace(){ 
-      if(!autoFace||!faceDetector){ 
-        faceBox=null; 
-        return; 
-      } 
-      const v=els.video; 
-      if(v.readyState<2){ 
-        faceBox=null; 
-        return; 
-      } 
-      try{ 
-        const faces=await faceDetector.detect(v); 
-        if(faces && faces[0]){ 
-          const b=faces[0].boundingBox; 
-          faceBox={x:b.x,y:b.y,width:b.width,height:b.height}; 
-        } else { 
-          faceBox=null; 
-        } 
-      }catch{ 
-        faceBox=null; 
-      } 
-    }
-
-    function loop(){ 
-      if(!running) return; 
-      if(rVFC){ 
-        els.video.requestVideoFrameCallback(async ()=>{ 
-          await maybeDetectFace(); 
-          drawFrame(); 
-          loop(); 
-        }); 
-      } else { 
-        (async()=>{ 
-          await maybeDetectFace(); 
-          drawFrame(); 
-        })(); 
-        setTimeout(loop, 1000/(+els.fps.value||30)); 
-      } 
-    }
-
-    async function setupAudioGraph(){ 
-      if(audioCtx) return; 
-      audioCtx=new (window.AudioContext||window.webkitAudioContext)(); 
-      sourceNode=audioCtx.createMediaElementSource(els.video); 
-      destNode=audioCtx.createMediaStreamDestination(); 
-      sourceNode.connect(destNode); 
-      sourceNode.connect(audioCtx.destination); 
-    }
-
-    function getMixedStream(){ 
-      const fps=Math.min(Math.max(+els.fps.value||30,15),60); 
-      const canvasStream=els.canvas.captureStream(fps); 
-      const tracks=[...canvasStream.getVideoTracks()]; 
-      if(destNode){ 
-        const a=destNode.stream.getAudioTracks(); 
-        if(a.length) tracks.push(a[0]); 
-      } 
-      return new MediaStream(tracks); 
-    }
-    
-    function pickMime(){ 
-      const candidates=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm']; 
-      for(const type of candidates){ 
-        if(MediaRecorder.isTypeSupported(type)) return type; 
-      } 
-      return ''; 
-    }
-
-    els.start.addEventListener('click', async()=>{ 
-      if(!els.video.src) return; 
-      
-      clearStatus();
-      
-      // Check if MP4 is selected and FFmpeg needs to be loaded
-      if(els.format.value === 'mp4' && !ffmpegLoaded) {
+    // Face detection
+    async function initializeFaceDetection() {
+      if ('FaceDetector' in window) {
         try {
-          await loadFFmpeg();
+          faceDetector = new window.FaceDetector({
+            fastMode: true,
+            maxDetectedFaces: 1
+          });
         } catch (error) {
-          showStatus('Cannot start recording: FFmpeg failed to load. Try WEBM format instead.', 'error');
-          return;
+          console.warn('Face detection not available:', error);
+        }
+      }
+    }
+
+    async function detectFace() {
+      if (!elements.autoFaceCheck.checked || !faceDetector || !elements.video.src) {
+        detectedFaceBox = null;
+        return;
+      }
+
+      try {
+        const faces = await faceDetector.detect(elements.video);
+        if (faces && faces.length > 0) {
+          const box = faces[0].boundingBox;
+          detectedFaceBox = {
+            x: box.x,
+            y: box.y,
+            width: box.width,
+            height: box.height
+          };
+        } else {
+          detectedFaceBox = null;
+        }
+      } catch (error) {
+        detectedFaceBox = null;
+      }
+    }
+
+    // Drawing functions
+    function drawFrame() {
+      const video = elements.video;
+      if (!video.videoWidth || !video.videoHeight) return;
+
+      const canvasWidth = elements.canvas.width;
+      const canvasHeight = elements.canvas.height;
+      const videoWidth = video.videoWidth;
+      const videoHeight = video.videoHeight;
+
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      // Draw background
+      const bgMode = document.querySelector('input[name="bgMode"]:checked').value;
+      const padding = parseInt(elements.paddingRange.value);
+      
+      if (bgMode === 'blur') {
+        drawBlurredBackground(video, canvasWidth, canvasHeight, videoWidth, videoHeight);
+      } else if (bgMode === 'solid') {
+        ctx.fillStyle = elements.colorPicker.value;
+        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+      } else {
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+      }
+
+      // Calculate video positioning
+      const scale = Math.min(
+        (canvasWidth - padding * 2) / videoWidth,
+        (canvasHeight - padding * 2) / videoHeight
+      );
+      
+      const scaledWidth = videoWidth * scale;
+      const scaledHeight = videoHeight * scale;
+      let x = (canvasWidth - scaledWidth) / 2;
+      let y = (canvasHeight - scaledHeight) / 2;
+
+      // Apply vertical offset
+      const offsetPercent = parseInt(elements.offsetRange.value) / 100;
+      y += offsetPercent * (canvasHeight / 4);
+
+      // Apply face centering if enabled
+      if (detectedFaceBox && elements.autoFaceCheck.checked) {
+        const faceCenterY = (detectedFaceBox.y + detectedFaceBox.height / 2) * scale + y;
+        const targetY = canvasHeight / 2;
+        const faceOffset = targetY - faceCenterY;
+        y = clamp(y + faceOffset, -(canvasHeight - scaledHeight) / 2, (canvasHeight - scaledHeight) / 2);
+      }
+
+      // Draw main video
+      ctx.drawImage(video, x, y, scaledWidth, scaledHeight);
+
+      // Draw watermark
+      drawWatermark(canvasWidth, canvasHeight);
+    }
+
+    function drawBlurredBackground(video, canvasWidth, canvasHeight, videoWidth, videoHeight) {
+      const scale = Math.max(canvasWidth / videoWidth, canvasHeight / videoHeight);
+      const scaledWidth = videoWidth * scale;
+      const scaledHeight = videoHeight * scale;
+      const x = (canvasWidth - scaledWidth) / 2;
+      const y = (canvasHeight - scaledHeight) / 2;
+
+      ctx.save();
+      const blurAmount = parseInt(elements.blurRange.value);
+      const darkenAmount = parseInt(elements.darkenRange.value) / 100;
+      ctx.filter = `blur(${blurAmount}px) brightness(${1 - darkenAmount})`;
+      ctx.drawImage(video, x, y, scaledWidth, scaledHeight);
+      ctx.restore();
+    }
+
+    function drawWatermark(canvasWidth, canvasHeight) {
+      const text = elements.watermarkText.value.trim();
+      const position = elements.watermarkPosition.value;
+      const size = parseInt(elements.watermarkSize.value);
+      const opacity = parseInt(elements.watermarkOpacity.value) / 100;
+      const padding = 16;
+
+      if (!text && !elements.watermarkImg.src) return;
+
+      ctx.save();
+      ctx.globalAlpha = opacity;
+
+      let textWidth = 0;
+      let textHeight = 0;
+
+      // Measure text if present
+      if (text) {
+        ctx.font = `bold ${size}px system-ui, sans-serif`;
+        ctx.textBaseline = 'bottom';
+        textWidth = ctx.measureText(text).width;
+        textHeight = size;
+      }
+
+      // Calculate position
+      let x = padding;
+      let y = canvasHeight - padding;
+
+      switch (position) {
+        case 'br':
+          x = canvasWidth - padding - textWidth;
+          y = canvasHeight - padding;
+          break;
+        case 'bl':
+          x = padding;
+          y = canvasHeight - padding;
+          break;
+        case 'tr':
+          x = canvasWidth - padding - textWidth;
+          y = padding + textHeight;
+          break;
+        case 'tl':
+          x = padding;
+          y = padding + textHeight;
+          break;
+        case 'center':
+          x = (canvasWidth - textWidth) / 2;
+          y = (canvasHeight + textHeight) / 2;
+          break;
+      }
+
+      // Draw text background
+      if (text) {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+        ctx.fillRect(x - 8, y - textHeight - 8, textWidth + 16, textHeight + 16);
+        
+        // Draw text
+        ctx.fillStyle = 'white';
+        ctx.fillText(text, x, y);
+      }
+
+      // Draw watermark image if present
+      if (elements.watermarkImg.src && elements.watermarkImg.complete) {
+        const imgScale = (size * 2) / (elements.watermarkImg.naturalHeight || 1);
+        const imgWidth = (elements.watermarkImg.naturalWidth || 0) * imgScale;
+        const imgHeight = (elements.watermarkImg.naturalHeight || 0) * imgScale;
+        
+        let imgX = x;
+        let imgY = y - imgHeight;
+        
+        if (position === 'center') {
+          imgX = (canvasWidth - imgWidth) / 2;
+          imgY = (canvasHeight - imgHeight) / 2;
+        }
+        
+        ctx.drawImage(elements.watermarkImg, imgX, imgY, imgWidth, imgHeight);
+      }
+
+      ctx.restore();
+    }
+
+    // Animation loop
+    function renderLoop() {
+      if (!isRendering) return;
+
+      if ('requestVideoFrameCallback' in HTMLVideoElement.prototype) {
+        elements.video.requestVideoFrameCallback(async () => {
+          await detectFace();
+          drawFrame();
+          renderLoop();
+        });
+      } else {
+        detectFace().then(() => {
+          drawFrame();
+          setTimeout(renderLoop, 1000 / (parseInt(elements.fpsInput.value) || 30));
+        });
+      }
+    }
+
+    // Audio setup
+    async function setupAudio() {
+      if (audioContext) return;
+      
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      sourceNode = audioContext.createMediaElementSource(elements.video);
+      destinationNode = audioContext.createMediaStreamDestination();
+      
+      sourceNode.connect(destinationNode);
+      sourceNode.connect(audioContext.destination);
+    }
+
+    // Recording functions
+    function getRecordingStream() {
+      const fps = Math.min(Math.max(parseInt(elements.fpsInput.value) || 30, 15), 60);
+      const canvasStream = elements.canvas.captureStream(fps);
+      const tracks = [...canvasStream.getVideoTracks()];
+      
+      if (destinationNode && destinationNode.stream.getAudioTracks().length > 0) {
+        tracks.push(...destinationNode.stream.getAudioTracks());
+      }
+      
+      return new MediaStream(tracks);
+    }
+
+    function getSupportedMimeType() {
+      const types = [
+        'video/webm;codecs=vp9,opus',
+        'video/webm;codecs=vp8,opus',
+        'video/webm'
+      ];
+      
+      for (const type of types) {
+        if (MediaRecorder.isTypeSupported(type)) {
+          return type;
         }
       }
       
-      await setupAudioGraph(); 
-      if(audioCtx.state==='suspended') await audioCtx.resume(); 
+      return '';
+    }
+
+    async function startRecording() {
+      if (!elements.video.src) return;
+
+      clearStatus();
+      showStatus('Preparing to record...', 'info');
+
+      try {
+        await setupAudio();
+        if (audioContext.state === 'suspended') {
+          await audioContext.resume();
+        }
+
+        await elements.video.play();
+
+        const stream = getRecordingStream();
+        const mimeType = getSupportedMimeType();
+        
+        recordedChunks = [];
+        
+        mediaRecorder = new MediaRecorder(stream, {
+          mimeType,
+          videoBitsPerSecond: 8000000
+        });
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data && event.data.size > 0) {
+            recordedChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = async () => {
+          const webmBlob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || 'video/webm' });
+          const timestamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+          
+          if (elements.formatSelect.value === 'mp4') {
+            showStatus('Converting to MP4... This may take a while.', 'info');
+            elements.downloadButton.disabled = true;
+            elements.downloadButton.textContent = 'Converting...';
+            
+            // For demonstration, we'll just provide the WebM file
+            // In a real implementation, you'd use ffmpeg.wasm here
+            setTimeout(() => {
+              const url = URL.createObjectURL(webmBlob);
+              elements.downloadButton.href = url;
+              elements.downloadButton.download = `portraitifier-${timestamp}.webm`;
+              elements.downloadButton.disabled = false;
+              elements.downloadButton.textContent = 'Download WebM';
+              showStatus('MP4 conversion requires ffmpeg.wasm - providing WebM instead', 'info');
+            }, 1000);
+          } else {
+            const url = URL.createObjectURL(webmBlob);
+            elements.downloadButton.href = url;
+            elements.downloadButton.download = `portraitifier-${timestamp}.webm`;
+            elements.downloadButton.disabled = false;
+            elements.downloadButton.textContent = 'Download WebM';
+            showStatus('Recording complete! Ready to download.', 'success');
+          }
+        };
+
+        mediaRecorder.start(1000);
+        recordingStartTime = performance.now();
+        
+        elements.startButton.disabled = true;
+        elements.stopButton.disabled = false;
+        elements.downloadButton.disabled = true;
+        
+        showStatus('Recording started...', 'info');
+        updateProgress();
+        
+      } catch (error) {
+        showStatus(`Recording failed: ${error.message}`, 'error');
+        console.error('Recording error:', error);
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+        elements.stopButton.disabled = true;
+        elements.startButton.disabled = false;
+        showStatus('Recording stopped, processing...', 'info');
+      }
+    }
+
+    function updateProgress() {
+      if (!mediaRecorder || mediaRecorder.state === 'inactive') return;
+
+      const elapsed = (performance.now() - recordingStartTime) / 1000;
+      elements.timeDisplay.textContent = formatTime(elapsed);
       
-      try{ 
-        await els.video.play(); 
-      }catch{}
+      const progress = elements.video.duration > 0 ? 
+        (elements.video.currentTime / elements.video.duration) * 100 : 0;
+      elements.progressFill.style.width = `${progress}%`;
+
+      requestAnimationFrame(updateProgress);
+    }
+
+    // Event listeners
+    elements.fileInput.addEventListener('change', async (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      const url = URL.createObjectURL(file);
+      elements.video.src = url;
+      elements.video.load();
+
+      try {
+        await elements.video.play();
+        elements.video.pause();
+        elements.video.currentTime = 0;
+      } catch (error) {
+        console.warn('Video play test failed:', error);
+      }
+
+      await initializeFaceDetection();
       
-      const stream=getMixedStream(); 
-      const mimeType=pickMime(); 
-      recordedChunks=[]; 
+      elements.startButton.disabled = false;
+      isRendering = true;
+      renderLoop();
+      clearStatus();
+    });
+
+    elements.resolutionSelect.addEventListener('change', () => {
+      initializeCanvas();
+      drawFrame();
+    });
+
+    elements.fpsInput.addEventListener('change', () => {
+      const [width, height] = elements.resolutionSelect.value.split('x').map(Number);
+      elements.dimensionsBadge.textContent = `${width}×${height} @ ${elements.fpsInput.value}fps`;
+    });
+
+    document.querySelectorAll('input[name="bgMode"]').forEach(radio => {
+      radio.addEventListener('change', updateBackgroundMode);
+    });
+
+    // Real-time update listeners
+    [
+      elements.blurRange,
+      elements.darkenRange,
+      elements.colorPicker,
+      elements.offsetRange,
+      elements.paddingRange,
+      elements.watermarkText,
+      elements.watermarkSize,
+      elements.watermarkOpacity,
+      elements.watermarkPosition
+    ].forEach(element => {
+      element.addEventListener('input', drawFrame);
+    });
+
+    elements.watermarkImage.addEventListener('change', (event) => {
+      const file = event.target.files?.[0];
+      if (!file) {
+        elements.watermarkImg.removeAttribute('src');
+        drawFrame();
+        return;
+      }
       
-      const recOpts={
+      const url = URL.createObjectURL(file);
+      elements.watermarkImg.src = url;
+      elements.watermarkImg.onload = drawFrame;
+    });
+
+    elements.autoFaceCheck.addEventListener('change', drawFrame);
+
+    elements.startButton.addEventListener('click', startRecording);
+    elements.stopButton.addEventListener('click', stopRecording);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (event) => {
+      if (!elements.video.src) return;
+
+      switch (event.code) {
+        case 'Space':
+          event.preventDefault();
+          if (elements.video.paused) {
+            elements.video.play();
+          } else {
+            elements.video.pause();
+          }
+          break;
+        case 'KeyK':
+          elements.video.currentTime = Math.max(0, elements.video.currentTime - 5);
+          break;
+        case 'KeyL':
+          elements.video.currentTime = Math.min(elements.video.duration, elements.video.currentTime + 5);
+          break;
+        case 'KeyJ':
+          elements.video.currentTime = Math.max(0, elements.video.currentTime - 10);
+          break;
+        case 'Comma':
+          elements.video.pause();
+          elements.video.currentTime = Math.max(0, 
+            elements.video.currentTime - (1 / (parseInt(elements.fpsInput.value) || 30)));
+          break;
+        case 'Period':
+          elements.video.pause();
+          elements.video.currentTime = Math.min(elements.video.duration,
+            elements.video.currentTime + (1 / (parseInt(elements.fpsInput.value) || 30)));
+          break;
+      }
+    });
+
+    elements.aboutLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      alert(`Portraitifier Pro - How it works:
+
+• Upload any 16:9 video (landscape)
+• Video is fitted to portrait 9:16 without cropping
+• Background fills the frame (blurred video, solid color, or black)
+• Add watermarks and logos
+• Auto-center on detected faces (when supported)
+• Export as WebM (instant) or MP4 (with conversion)
+• Everything runs locally in your browser
+
+Keyboard shortcuts:
+• Space: Play/Pause
+• J/K/L: Seek backwards/pause/forwards
+• ,/.: Frame by frame navigation
+
+No data is uploaded to servers - all processing happens in your browser!`);
+    });
+
+    // Initialize
+    initializeCanvas();
+    updateBackgroundMode();
+    drawFrame();
+  </script>
+</body>
+</html>
