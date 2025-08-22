@@ -3,84 +3,55 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portraitifier — Convert 16:9 ➜ 9:16 without Cropping</title>
+  <title>Portraitifier Pro — 16:9 ➜ 9:16 (No‑Crop, MP4, Watermark, Face Auto‑Center)</title>
   <style>
-    :root {
-      --bg: #0b0f14;
-      --panel: #121822;
-      --panel-2: #0e141d;
-      --text: #e7edf6;
-      --muted: #9bb0c3;
-      --accent: #5cc8ff;
-      --accent-2: #7affb7;
-      --danger: #ff6b6b;
-      --radius: 16px;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; background: radial-gradient(1200px 600px at 10% -10%, #122033, #091018), var(--bg);
-      color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      min-height: 100dvh; display: grid; grid-template-rows: auto 1fr auto;
-    }
-    header {
-      padding: 18px 22px; display: flex; align-items: center; gap: 14px; background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent), var(--panel);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    header h1 { font-size: 1.1rem; margin: 0; letter-spacing: 0.2px; }
-    header .pill { font-size: .75rem; color: var(--bg); background: linear-gradient(135deg, var(--accent), var(--accent-2)); padding: 4px 8px; border-radius: 999px; font-weight: 700; }
-
-    main { display: grid; grid-template-columns: 380px 1fr; gap: 16px; padding: 16px; }
-    @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
-
-    .panel { background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent), var(--panel-2); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); }
-
-    .controls { padding: 16px; display: grid; gap: 14px; align-content: start; }
-    .group { display: grid; gap: 10px; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); }
-    .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-    label { font-size: .9rem; color: var(--muted); }
-    input[type="range"] { width: 100%; }
-    input[type="file"] { width: 100%; padding: 10px; border: 1px dashed rgba(255,255,255,0.2); border-radius: 12px; background: rgba(255,255,255,0.03); }
-    select, input[type="number"], input[type="text"], button {
-      background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 10px 12px; font-size: .95rem;
-    }
-    button.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #00253a; border: none; font-weight: 800; }
-    button.ghost { background: rgba(255,255,255,0.06); }
-    button.danger { background: var(--danger); color: white; border: none; font-weight: 800; }
-    button:disabled { opacity: .55; cursor: not-allowed; }
-
-    .preview-wrap { display: grid; grid-template-rows: auto 1fr auto; padding: 12px; gap: 8px; }
-
-    .stage {
-      aspect-ratio: 9/16; width: min(52vw, 420px); justify-self: center; background: #000; position: relative; border-radius: 24px; overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.06) inset;
-    }
-    .canvas, video { width: 100%; height: 100%; display: block; }
-
-    .tips { font-size: .85rem; color: var(--muted); }
-    .kbd { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.2); border-bottom-width: 3px; border-radius: 6px; padding: 0 6px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-
-    footer { padding: 12px 16px; font-size: .85rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-    a { color: var(--accent-2); text-decoration: none; }
-
-    .meter { height: 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; overflow: hidden; }
-    .meter > i { display: block; height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .2s linear; }
-
-    .inline { display: inline-flex; align-items: center; gap: 8px; }
+    :root { --bg:#0b0f14; --panel:#121822; --panel-2:#0e141d; --text:#e7edf6; --muted:#9bb0c3; --accent:#5cc8ff; --accent-2:#7affb7; --danger:#ff6b6b; --radius:16px; }
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(1200px 600px at 10% -10%,#122033,#091018),var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";min-height:100dvh;display:grid;grid-template-rows:auto 1fr auto}
+    header{padding:18px 22px;display:flex;align-items:center;gap:14px;background:linear-gradient(180deg,rgba(255,255,255,.04),transparent),var(--panel);border-bottom:1px solid rgba(255,255,255,.06)}
+    header h1{font-size:1.05rem;margin:0;letter-spacing:.2px}
+    .pill{font-size:.75rem;color:#001a28;background:linear-gradient(135deg,var(--accent),var(--accent-2));padding:4px 8px;border-radius:999px;font-weight:800}
+    main{display:grid;grid-template-columns:400px 1fr;gap:16px;padding:16px}
+    @media (max-width:980px){main{grid-template-columns:1fr}}
+    .panel{background:linear-gradient(180deg,rgba(255,255,255,.04),transparent),var(--panel-2);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius)}
+    .controls{padding:16px;display:grid;gap:14px;align-content:start}
+    .group{display:grid;gap:10px;background:rgba(255,255,255,.02);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.06)}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    label{font-size:.9rem;color:var(--muted)}
+    input[type=file]{width:100%;padding:10px;border:1px dashed rgba(255,255,255,.2);border-radius:12px;background:rgba(255,255,255,.03)}
+    select,input[type=number],input[type=text],button{background:rgba(255,255,255,.06);color:var(--text);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:10px 12px;font-size:.95rem}
+    input[type=range]{width:100%}
+    button.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#00253a;border:none;font-weight:800}
+    button.ghost{background:rgba(255,255,255,.06)}
+    button.danger{background:var(--danger);color:#fff;border:none;font-weight:800}
+    button:disabled{opacity:.55;cursor:not-allowed}
+    .preview-wrap{display:grid;grid-template-rows:auto 1fr auto;padding:12px;gap:8px}
+    .stage{aspect-ratio:9/16;width:min(52vw,440px);justify-self:center;background:#000;position:relative;border-radius:24px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06) inset}
+    .canvas,video{width:100%;height:100%;display:block}
+    .tips{font-size:.85rem;color:var(--muted)}
+    .kbd{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.2);border-bottom-width:3px;border-radius:6px;padding:0 6px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+    footer{padding:12px 16px;font-size:.85rem;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:10px}
+    a{color:var(--accent-2);text-decoration:none}
+    .meter{height:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:999px;overflow:hidden}
+    .meter>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .2s linear}
+    .status{padding:8px 12px;background:rgba(255,255,255,.03);border-radius:8px;font-size:.85rem;margin-top:8px}
+    .status.error{background:rgba(255,107,107,.1);color:#ff6b6b}
+    .status.success{background:rgba(124,255,183,.1);color:#7affb7}
+    .status.info{background:rgba(92,200,255,.1);color:#5cc8ff}
   </style>
 </head>
 <body>
   <header>
     <div class="pill">No‑Crop 16:9 ➜ 9:16</div>
-    <h1>Portraitifier – Fill the whole 9:16 screen without losing any content</h1>
+    <h1>Portraitifier Pro – MP4 export • Watermark • Auto‑center faces • GitHub Pages ready</h1>
   </header>
 
   <main>
-    <!-- Controls -->
     <section class="panel controls">
       <div class="group">
         <label for="file">1) Upload your 16:9 video</label>
         <input id="file" type="file" accept="video/*" />
-        <div class="tips">Works fully in‑browser. Nothing uploads anywhere.</div>
+        <div class="tips">Runs entirely in your browser. Nothing is uploaded.</div>
       </div>
 
       <div class="group">
@@ -95,7 +66,7 @@
         <div class="row">
           <label>Target FPS</label>
           <input id="fps" type="number" min="15" max="60" step="1" value="30" />
-          <span class="tips">Use the source FPS if unsure.</span>
+          <span class="tips">If unsure, leave 30.</span>
         </div>
       </div>
 
@@ -117,287 +88,485 @@
         <div class="row">
           <label style="min-width: 90px;">Darken</label>
           <input id="darken" type="range" min="0" max="80" value="20" />
-          <span class="tips">Helps the foreground pop.</span>
         </div>
       </div>
 
       <div class="group">
         <label>4) Foreground framing (never crops)</label>
+        <div class="row"><label style="min-width:90px;">Vertical offset</label><input id="yoffset" type="range" min="-100" max="100" value="0" /></div>
+        <div class="row"><label style="min-width:90px;">Padding</label><input id="padding" type="range" min="0" max="200" value="0" /><span class="tips">Extra gap around the full video.</span></div>
+        <div class="row"><label class="inline"><input type="checkbox" id="autoFace"/> Auto‑center on faces</label><span class="tips">Uses Face Detection API when available.</span></div>
+      </div>
+
+      <div class="group">
+        <label>5) Watermark</label>
+        <div class="row"><input id="wmTextInput" type="text" placeholder="Watermark text (optional)" /></div>
         <div class="row">
-          <label style="min-width: 90px;">Vertical offset</label>
-          <input id="yoffset" type="range" min="-100" max="100" value="0" />
+          <label>Size <input id="wmSize" type="range" min="8" max="72" value="24" /></label>
+          <label>Opacity <input id="wmAlpha" type="range" min="0" max="100" value="60" /></label>
+          <label>Padding <input id="wmPad" type="range" min="0" max="80" value="12" /></label>
         </div>
         <div class="row">
-          <label style="min-width: 90px;">Padding</label>
-          <input id="padding" type="range" min="0" max="200" value="0" />
-          <span class="tips">Optional extra gap around the full video.</span>
+          <label>Position
+            <select id="wmPos">
+              <option value="br" selected>Bottom Right</option>
+              <option value="bl">Bottom Left</option>
+              <option value="tr">Top Right</option>
+              <option value="tl">Top Left</option>
+              <option value="center">Center</option>
+            </select>
+          </label>
+          <label class="inline">Image <input id="wmImageInput" type="file" accept="image/*"></label>
         </div>
       </div>
 
       <div class="group">
-        <label>5) Export</label>
-        <div class="row" style="gap: 8px;">
+        <label>6) Export</label>
+        <div class="row" style="gap: 8px; align-items:center; flex-wrap:wrap;">
+          <label class="inline">Format
+            <select id="format">
+              <option value="webm" selected>WEBM (VP9 + Opus)</option>
+              <option value="mp4">MP4 (H.264 + AAC) — beta</option>
+            </select>
+          </label>
+          <button id="preloadFFmpeg" class="ghost" style="display:none;">Load MP4 Encoder</button>
           <button id="start" class="primary" disabled>Start Recording</button>
           <button id="stop" class="danger" disabled>Stop</button>
           <button id="download" class="ghost" disabled>Download</button>
         </div>
-        <div class="row">
-          <div class="meter" style="flex:1"><i id="meterBar"></i></div>
-          <span id="meterText" class="tips" style="width: 120px; text-align:right;">00:00</span>
-        </div>
-        <div class="tips">Output is <b>WEBM (VP9 + original audio)</b> for widest browser support. You can transcode to MP4 in most editors if needed.</div>
+        <div class="row"><div class="meter" style="flex:1"><i id="meterBar"></i></div><span id="meterText" class="tips" style="width:120px;text-align:right;">00:00</span></div>
+        <div id="statusDiv"></div>
+        <div class="tips">WEBM is instant. MP4 transcodes locally using ffmpeg.wasm after recording. Nothing leaves your device.</div>
       </div>
     </section>
 
-    <!-- Preview / Canvas -->
     <section class="panel preview-wrap">
-      <div class="row" style="padding: 10px 12px; justify-content: space-between;">
-        <div class="tips">Live preview (what you see is what gets exported)</div>
-        <div id="dimBadge" class="pill" style="font-weight: 700;">1080×1920 @ 30 fps</div>
+      <div class="row" style="padding: 10px 12px; justify-content: space-between; flex-wrap:wrap; gap:8px;">
+        <div class="tips">Live preview (what you see is what you export)</div>
+        <div id="dimBadge" class="pill" style="font-weight:700;">1080×1920 @ 30 fps</div>
       </div>
-      <div class="stage">
-        <canvas id="canvas" class="canvas"></canvas>
-      </div>
-      <div class="tips" style="padding: 0 12px 12px;">
+      <div class="stage"><canvas id="canvas" class="canvas"></canvas></div>
+      <div class="tips" style="padding:0 12px 12px;display:grid;gap:6px;">
         Shortcuts: <span class="kbd">Space</span> play/pause, <span class="kbd">J/K/L</span> seek, <span class="kbd">,</span>/<span class="kbd">.</span> frame.
+        <div id="ffmpegHint" class="tips" style="display:none;">MP4 selected — the app will fetch ffmpeg.wasm (~30–40MB) once, then cache it.</div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div>Built for creators who need <b>no‑crop 16:9 ➜ 9:16</b> with blurred backfill for YouTube Shorts, Reels & TikTok — all on‑device.</div>
+    <div>Drop this HTML into any GitHub repo and enable <b>GitHub Pages</b>. It's a single file.</div>
     <div><a href="#" id="how">How it works</a></div>
   </footer>
 
-  <!-- Hidden media elements (sources for drawing & audio) -->
   <video id="video" playsinline preload="metadata" style="display:none"></video>
+  <img id="wmImage" alt="" style="display:none" />
 
   <script>
     const els = {
-      file: document.getElementById('file'),
-      canvas: document.getElementById('canvas'),
-      video: document.getElementById('video'),
-      start: document.getElementById('start'),
-      stop: document.getElementById('stop'),
-      download: document.getElementById('download'),
-      meterBar: document.getElementById('meterBar'),
-      meterText: document.getElementById('meterText'),
-      resolution: document.getElementById('resolution'),
-      fps: document.getElementById('fps'),
-      blur: document.getElementById('blur'),
-      bgmode: document.querySelectorAll('input[name="bgmode"]'),
-      darken: document.getElementById('darken'),
-      bgcolor: document.getElementById('bgcolor'),
-      bgBlurControls: document.getElementById('bgBlurControls'),
-      bgColorControls: document.getElementById('bgColorControls'),
-      yoffset: document.getElementById('yoffset'),
-      padding: document.getElementById('padding'),
-      dimBadge: document.getElementById('dimBadge'),
+      file: document.getElementById('file'), 
+      canvas: document.getElementById('canvas'), 
+      video: document.getElementById('video'), 
+      start: document.getElementById('start'), 
+      stop: document.getElementById('stop'), 
+      download: document.getElementById('download'), 
+      meterBar: document.getElementById('meterBar'), 
+      meterText: document.getElementById('meterText'), 
+      resolution: document.getElementById('resolution'), 
+      fps: document.getElementById('fps'), 
+      blur: document.getElementById('blur'), 
+      bgmode: document.querySelectorAll('input[name="bgmode"]'), 
+      darken: document.getElementById('darken'), 
+      bgcolor: document.getElementById('bgcolor'), 
+      bgBlurControls: document.getElementById('bgBlurControls'), 
+      bgColorControls: document.getElementById('bgColorControls'), 
+      yoffset: document.getElementById('yoffset'), 
+      padding: document.getElementById('padding'), 
+      dimBadge: document.getElementById('dimBadge'), 
+      format: document.getElementById('format'), 
+      ffmpegHint: document.getElementById('ffmpegHint'),
+      preloadFFmpeg: document.getElementById('preloadFFmpeg'),
+      statusDiv: document.getElementById('statusDiv')
     };
 
-    // Global state
-    let ctx, running = false, rafId = null, rVFC = 'requestVideoFrameCallback' in HTMLVideoElement.prototype;
-    let rec = null, recordedChunks = [], recStartTs = 0, drawFps = 30;
-    let audioCtx, sourceNode, destNode;
+    let ctx, running=false, rVFC = 'requestVideoFrameCallback' in HTMLVideoElement.prototype;
+    let rec=null, recordedChunks=[], recStartTs=0; 
+    let audioCtx, sourceNode, destNode; 
+    let faceDetector=null, faceBox=null, autoFace=false;
+    let ffmpegLoaded = false, ffmpeg = null;
 
-    // Setup canvas
-    function setCanvasSizeFromSelect() {
-      const [w, h] = els.resolution.value.split('x').map(Number);
-      els.canvas.width = w; els.canvas.height = h;
-      els.dimBadge.textContent = `${w}×${h} @ ${els.fps.value} fps`;
-      if (!ctx) ctx = els.canvas.getContext('2d');
+    function showStatus(message, type = 'info') {
+      els.statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+      if (type === 'error') console.error(message);
     }
+
+    function clearStatus() {
+      els.statusDiv.innerHTML = '';
+    }
+
+    // Improved FFmpeg loading with better error handling
+    async function loadFFmpeg() {
+      if (ffmpegLoaded && ffmpeg) return ffmpeg;
+      
+      try {
+        showStatus('Loading FFmpeg.wasm (30-40MB download)...', 'info');
+        
+        // Load FFmpeg scripts with timeout
+        await Promise.race([
+          loadFFmpegScripts(),
+          new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('FFmpeg loading timeout')), 60000)
+          )
+        ]);
+
+        const { FFmpeg } = window.FFmpegWASM;
+        const { fetchFile } = window.FFmpegUtil;
+        
+        ffmpeg = new FFmpeg();
+        
+        // Set up logging for debugging
+        ffmpeg.on('log', ({ message }) => {
+          console.log('[FFmpeg]', message);
+        });
+
+        ffmpeg.on('progress', ({ progress, time }) => {
+          if (progress > 0) {
+            showStatus(`Converting: ${Math.round(progress * 100)}%`, 'info');
+          }
+        });
+
+        showStatus('Initializing FFmpeg...', 'info');
+        
+        await ffmpeg.load({
+          coreURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/ffmpeg-core.js',
+          wasmURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/ffmpeg-core.wasm',
+          workerURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/ffmpeg-core.worker.js'
+        });
+
+        window.ffmpeg = ffmpeg;
+        window.fetchFile = fetchFile;
+        ffmpegLoaded = true;
+        
+        showStatus('FFmpeg loaded successfully!', 'success');
+        setTimeout(clearStatus, 3000);
+        
+        return ffmpeg;
+      } catch (error) {
+        showStatus(`Failed to load FFmpeg: ${error.message}`, 'error');
+        throw error;
+      }
+    }
+
+    async function loadFFmpegScripts() {
+      // Load FFmpeg and util scripts
+      await loadScript('https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js');
+      await loadScript('https://unpkg.com/@ffmpeg/util@0.12.1/dist/util.min.js');
+    }
+
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) {
+          resolve();
+          return;
+        }
+        
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = () => reject(new Error(`Failed to load ${src}`));
+        document.head.appendChild(script);
+      });
+    }
+
+    function setCanvasSizeFromSelect(){ 
+      const [w,h]=els.resolution.value.split('x').map(Number); 
+      els.canvas.width=w; 
+      els.canvas.height=h; 
+      els.dimBadge.textContent=`${w}×${h} @ ${els.fps.value} fps`; 
+      if(!ctx) ctx=els.canvas.getContext('2d'); 
+    }
+    
     setCanvasSizeFromSelect();
-
     els.resolution.addEventListener('change', setCanvasSizeFromSelect);
-    els.fps.addEventListener('change', () => { drawFps = clamp(+els.fps.value, 15, 60); });
+    els.fps.addEventListener('change', ()=>{ 
+      els.dimBadge.textContent = `${els.canvas.width}×${els.canvas.height} @ ${els.fps.value} fps`; 
+    });
 
-    // BG mode toggles
-    els.bgmode.forEach(r => r.addEventListener('change', () => {
-      const mode = getBgMode();
-      els.bgBlurControls.style.display = mode === 'blur' ? '' : 'none';
-      els.bgColorControls.style.display = mode === 'solid' ? '' : 'none';
+    els.bgmode.forEach(r=>r.addEventListener('change',()=>{ 
+      const m=getBgMode(); 
+      els.bgBlurControls.style.display = m==='blur'?'':'none'; 
+      els.bgColorControls.style.display = m==='solid'?'':'none'; 
     }));
 
-    // Utilities
-    const clamp = (n, a, b) => Math.min(Math.max(n, a), b);
-    function formatTime(s) {
-      const m = Math.floor(s/60).toString().padStart(2,'0');
-      const ss = Math.floor(s%60).toString().padStart(2,'0');
-      return `${m}:${ss}`;
-    }
-    const getBgMode = () => [...els.bgmode].find(r => r.checked)?.value || 'blur';
+    const clamp=(n,a,b)=>Math.min(Math.max(n,a),b);
+    const formatTime=s=>{ 
+      const m=Math.floor(s/60).toString().padStart(2,'0'); 
+      const ss=Math.floor(s%60).toString().padStart(2,'0'); 
+      return `${m}:${ss}`; 
+    };
+    const getBgMode=()=>[...els.bgmode].find(r=>r.checked)?.value||'blur';
 
-    // File loading
-    els.file.addEventListener('change', async (e) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      const url = URL.createObjectURL(file);
-      els.video.src = url;
-      els.video.load();
-      try { await els.video.play(); els.video.pause(); } catch {}
-
-      els.start.disabled = false; // enable export
-      running = true; loop();
+    els.file.addEventListener('change', async e=>{
+      const file=e.target.files?.[0]; 
+      if(!file) return; 
+      
+      const url=URL.createObjectURL(file); 
+      els.video.src=url; 
+      els.video.load(); 
+      
+      try{ 
+        await els.video.play(); 
+        els.video.pause(); 
+      }catch{}
+      
+      if ('FaceDetector' in window){ 
+        try{ 
+          faceDetector=new window.FaceDetector({fastMode:true,maxDetectedFaces:1}); 
+        }catch{ 
+          faceDetector=null; 
+        } 
+      }
+      
+      els.start.disabled=false; 
+      running=true; 
+      loop();
+      clearStatus();
     });
 
-    // Keyboard shortcuts for preview control
-    document.addEventListener('keydown', (e) => {
-      if (!els.video.src) return;
-      if (e.code === 'Space') { e.preventDefault(); if (els.video.paused) els.video.play(); else els.video.pause(); }
-      if (e.key === 'l' || e.key === 'L') els.video.currentTime = Math.min(els.video.duration, els.video.currentTime + 5);
-      if (e.key === 'j' || e.key === 'J') els.video.currentTime = Math.max(0, els.video.currentTime - 5);
-      if (e.key === ',') els.video.pause(), els.video.currentTime = Math.max(0, els.video.currentTime - (1/(+els.fps.value||30)));
-      if (e.key === '.') els.video.pause(), els.video.currentTime = Math.min(els.video.duration, els.video.currentTime + (1/(+els.fps.value||30)));
+    // Format change handler
+    els.format.addEventListener('change', ()=> {
+      const isMP4 = els.format.value === 'mp4';
+      els.ffmpegHint.style.display = isMP4 ? '' : 'none';
+      els.preloadFFmpeg.style.display = isMP4 && !ffmpegLoaded ? '' : 'none';
     });
 
-    // Drawing logic: background (cover) + foreground (contain)
-    function drawFrame() {
-      const v = els.video; if (!v.videoWidth || !v.videoHeight) return;
-      const W = els.canvas.width, H = els.canvas.height;
-      const vw = v.videoWidth, vh = v.videoHeight;
+    // Preload FFmpeg button
+    els.preloadFFmpeg.addEventListener('click', async () => {
+      els.preloadFFmpeg.disabled = true;
+      els.preloadFFmpeg.textContent = 'Loading...';
+      
+      try {
+        await loadFFmpeg();
+        els.preloadFFmpeg.style.display = 'none';
+      } catch (error) {
+        els.preloadFFmpeg.disabled = false;
+        els.preloadFFmpeg.textContent = 'Retry Load';
+      }
+    });
 
-      // Clear
+    document.addEventListener('keydown', e=>{ 
+      if(!els.video.src) return; 
+      
+      if(e.code==='Space'){ 
+        e.preventDefault(); 
+        if(els.video.paused) els.video.play(); 
+        else els.video.pause(); 
+      } 
+      
+      if(e.key==='l'||e.key==='L') els.video.currentTime=Math.min(els.video.duration, els.video.currentTime+5); 
+      if(e.key==='j'||e.key==='J') els.video.currentTime=Math.max(0, els.video.currentTime-5); 
+      
+      if(e.key===','){ 
+        els.video.pause(); 
+        els.video.currentTime=Math.max(0, els.video.currentTime-(1/(+els.fps.value||30))); 
+      } 
+      
+      if(e.key==='.') { 
+        els.video.pause(); 
+        els.video.currentTime=Math.min(els.video.duration, els.video.currentTime+(1/(+els.fps.value||30))); 
+      }
+    });
+
+    function drawFrame(){ 
+      const v=els.video; 
+      if(!v.videoWidth||!v.videoHeight) return; 
+      
+      const W=els.canvas.width,H=els.canvas.height; 
+      const vw=v.videoWidth, vh=v.videoHeight; 
       ctx.clearRect(0,0,W,H);
-
-      // Chosen padding & offset
-      const pad = +els.padding.value;
-      const yOff = (+els.yoffset.value / 100) * (H/4);
-
-      // Background
-      const mode = getBgMode();
-      if (mode === 'blur') {
-        const scaleCover = Math.max(W / vw, H / vh);
-        const bw = vw * scaleCover, bh = vh * scaleCover;
-        const bx = (W - bw) / 2, by = (H - bh) / 2;
-        const blurPx = +els.blur.value;
-        const darkenPct = +els.darken.value;
-        ctx.save();
-        ctx.filter = `blur(${blurPx}px) brightness(${1 - darkenPct/100})`;
-        ctx.drawImage(v, bx, by, bw, bh);
-        ctx.restore();
-      } else if (mode === 'solid') {
-        ctx.fillStyle = els.bgcolor.value;
+      
+      const pad=+els.padding.value; 
+      let yOff=(+els.yoffset.value/100)*(H/4);
+      
+      const mode=getBgMode(); 
+      if(mode==='blur'){ 
+        const scaleCover=Math.max(W/vw,H/vh); 
+        const bw=vw*scaleCover,bh=vh*scaleCover; 
+        const bx=(W-bw)/2, by=(H-bh)/2; 
+        ctx.save(); 
+        ctx.filter=`blur(${+els.blur.value}px) brightness(${1-+els.darken.value/100})`; 
+        ctx.drawImage(v,bx,by,bw,bh); 
+        ctx.restore(); 
+      } else if(mode==='solid'){ 
+        ctx.fillStyle=els.bgcolor.value; 
         ctx.fillRect(0,0,W,H);
-      } else {
-        // Black default
-        ctx.fillStyle = '#000';
-        ctx.fillRect(0,0,W,H);
+      } else { 
+        ctx.fillStyle='#000'; 
+        ctx.fillRect(0,0,W,H); 
       }
-
-      // Foreground (full content, no crop) – "contain"
-      const scaleContain = Math.min((W - pad*2) / vw, (H - pad*2) / vh);
-      const fw = vw * scaleContain, fh = vh * scaleContain;
-      const fx = (W - fw) / 2; let fy = (H - fh) / 2 + yOff;
-      // Clamp to canvas so user can't offset past edges
-      fy = clamp(fy, -((H - fh)/2), ((H - fh)/2));
-
-      // Draw the clean foreground frame on top
-      ctx.drawImage(v, fx, fy, fw, fh);
-    }
-
-    // Animation / preview loop
-    function loop() {
-      if (!running) return;
-      if (rVFC) {
-        els.video.requestVideoFrameCallback(() => { drawFrame(); loop(); });
-      } else {
-        drawFrame();
-        rafId = setTimeout(loop, 1000/(+els.fps.value||30));
+      
+      const scaleContain=Math.min((W-pad*2)/vw,(H-pad*2)/vh); 
+      const fw=vw*scaleContain, fh=vh*scaleContain; 
+      const fx=(W-fw)/2; 
+      let fy=(H-fh)/2;
+      
+      if(autoFace && faceBox){ 
+        const faceCY_src=faceBox.y+faceBox.height/2; 
+        const faceCY_canvas=(faceCY_src*scaleContain)+fy; 
+        const delta=(H/2)-faceCY_canvas; 
+        yOff+=delta; 
       }
+      
+      fy=clamp(fy+yOff,-((H-fh)/2),((H-fh)/2)); 
+      ctx.drawImage(v,fx,fy,fw,fh);
+      drawWatermark(W,H);
     }
 
-    // Recording setup using MediaRecorder on canvas stream + original audio
-    async function setupAudioGraph() {
-      if (audioCtx) return;
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      sourceNode = audioCtx.createMediaElementSource(els.video);
-      destNode = audioCtx.createMediaStreamDestination();
-      sourceNode.connect(destNode);
-      // Also route to speakers for monitoring
-      sourceNode.connect(audioCtx.destination);
-    }
-
-    function getMixedStream() {
-      const fps = clamp(+els.fps.value||30, 15, 60);
-      const canvasStream = els.canvas.captureStream(fps);
-      const tracks = [...canvasStream.getVideoTracks()];
-      if (destNode) {
-        const audioTracks = destNode.stream.getAudioTracks();
-        if (audioTracks.length) tracks.push(audioTracks[0]);
+    function drawWatermark(W,H){ 
+      const text=document.getElementById('wmTextInput').value.trim(); 
+      const pos=document.getElementById('wmPos').value; 
+      const size=+document.getElementById('wmSize').value; 
+      const alpha=+document.getElementById('wmAlpha').value/100; 
+      const pad=+document.getElementById('wmPad').value; 
+      const imgEl=document.getElementById('wmImage');
+      
+      ctx.save(); 
+      ctx.globalAlpha=alpha; 
+      let w=0,h=0; 
+      let drawFn=null; 
+      
+      if(text){ 
+        ctx.font=`700 ${size}px system-ui, sans-serif`; 
+        ctx.textBaseline='bottom'; 
+        w=ctx.measureText(text).width; 
+        h=size; 
+        drawFn=()=>{ 
+          ctx.fillStyle='rgba(0,0,0,0.35)'; 
+          ctx.fillRect(x-6,y-h-6,w+12,h+12); 
+          ctx.fillStyle='white'; 
+          ctx.fillText(text,x,y); 
+        }; 
       }
-      return new MediaStream(tracks);
-    }
-
-    function pickMime() {
-      const candidates = [
-        'video/webm;codecs=vp9,opus',
-        'video/webm;codecs=vp8,opus',
-        'video/webm',
-      ];
-      for (const c of candidates) { if (MediaRecorder.isTypeSupported(c)) return c; }
-      return '';
-    }
-
-    els.start.addEventListener('click', async () => {
-      if (!els.video.src) return;
-      await setupAudioGraph();
-      if (audioCtx.state === 'suspended') await audioCtx.resume();
-
-      // Ensure playback for live drawing during recording
-      try { await els.video.play(); } catch {}
-
-      const stream = getMixedStream();
-      const mimeType = pickMime();
-      recordedChunks = [];
-      rec = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 8_000_000 });
-
-      rec.ondataavailable = (e) => { if (e.data && e.data.size > 0) recordedChunks.push(e.data); };
-      rec.onstop = () => {
-        const blob = new Blob(recordedChunks, { type: rec.mimeType || 'video/webm' });
-        const url = URL.createObjectURL(blob);
-        els.download.href = url;
-        const stamp = new Date().toISOString().slice(0,19).replace(/[:T]/g,'-');
-        els.download.download = `portraitifier-${stamp}.webm`;
-        els.download.disabled = false;
-      };
-
-      rec.start(1000); // timeslice for ondataavailable
-      recStartTs = performance.now();
-      els.start.disabled = true; els.stop.disabled = false; els.download.disabled = true;
-      tickMeter();
-    });
-
-    els.stop.addEventListener('click', () => {
-      if (rec && rec.state !== 'inactive') {
-        rec.stop();
-        els.stop.disabled = true; els.start.disabled = false;
+      
+      if(imgEl && imgEl.src){ 
+        const scale=(size*2)/(imgEl.naturalHeight||1); 
+        const iw=(imgEl.naturalWidth||0)*scale; 
+        const ih=(imgEl.naturalHeight||0)*scale; 
+        w=Math.max(w,iw); 
+        h=Math.max(h,ih); 
+        const prev=drawFn; 
+        drawFn=()=>{ 
+          if(prev) prev(); 
+          ctx.drawImage(imgEl,x,y-ih,iw,ih); 
+        } 
       }
-    });
-
-    function tickMeter() {
-      if (!rec || rec.state === 'inactive') return;
-      const elapsed = (performance.now() - recStartTs) / 1000;
-      els.meterText.textContent = formatTime(elapsed);
-      const pct = (els.video.currentTime / (els.video.duration || 1)) * 100;
-      els.meterBar.style.width = pct + '%';
-      requestAnimationFrame(tickMeter);
+      
+      if(!drawFn){ 
+        ctx.restore(); 
+        return; 
+      }
+      
+      let x=pad, y=H-pad; 
+      if(pos==='br'){ x=W-pad-w; y=H-pad; } 
+      if(pos==='bl'){ x=pad; y=H-pad; } 
+      if(pos==='tr'){ x=W-pad-w; y=pad+h; } 
+      if(pos==='tl'){ x=pad; y=pad+h; } 
+      if(pos==='center'){ x=(W-w)/2; y=(H+h)/2; } 
+      drawFn(); 
+      ctx.restore(); 
     }
 
-    // Live update on any control change
-    [els.blur, els.darken, els.bgcolor, els.yoffset, els.padding].forEach(el => el.addEventListener('input', drawFrame));
+    async function maybeDetectFace(){ 
+      if(!autoFace||!faceDetector){ 
+        faceBox=null; 
+        return; 
+      } 
+      const v=els.video; 
+      if(v.readyState<2){ 
+        faceBox=null; 
+        return; 
+      } 
+      try{ 
+        const faces=await faceDetector.detect(v); 
+        if(faces && faces[0]){ 
+          const b=faces[0].boundingBox; 
+          faceBox={x:b.x,y:b.y,width:b.width,height:b.height}; 
+        } else { 
+          faceBox=null; 
+        } 
+      }catch{ 
+        faceBox=null; 
+      } 
+    }
 
-    // Update preview size text when FPS/res changes
-    els.fps.addEventListener('input', () => els.dimBadge.textContent = `${els.canvas.width}×${els.canvas.height} @ ${els.fps.value} fps`);
+    function loop(){ 
+      if(!running) return; 
+      if(rVFC){ 
+        els.video.requestVideoFrameCallback(async ()=>{ 
+          await maybeDetectFace(); 
+          drawFrame(); 
+          loop(); 
+        }); 
+      } else { 
+        (async()=>{ 
+          await maybeDetectFace(); 
+          drawFrame(); 
+        })(); 
+        setTimeout(loop, 1000/(+els.fps.value||30)); 
+      } 
+    }
 
-    // Help modal (simple alert)
-    document.getElementById('how').addEventListener('click', (e) => {
-      e.preventDefault();
-      alert(`How it works:\n\n• The app lays your full 16:9 video on top using 'contain' — so nothing is cropped.\n• It fills the 9:16 background either with a blurred clone, a solid color, or black.\n• Export captures the canvas + original audio via MediaRecorder entirely in your browser.\n\nTips:\n• Use 1080×1920 @ 30 fps for Shorts.\n• Increase blur + darken for better subject focus.\n• Use the Vertical offset to nudge action into the center for captions UI.`);
-    });
+    async function setupAudioGraph(){ 
+      if(audioCtx) return; 
+      audioCtx=new (window.AudioContext||window.webkitAudioContext)(); 
+      sourceNode=audioCtx.createMediaElementSource(els.video); 
+      destNode=audioCtx.createMediaStreamDestination(); 
+      sourceNode.connect(destNode); 
+      sourceNode.connect(audioCtx.destination); 
+    }
 
-    // Initial blank render
-    drawFrame();
-  </script>
-</body>
-</html>
+    function getMixedStream(){ 
+      const fps=Math.min(Math.max(+els.fps.value||30,15),60); 
+      const canvasStream=els.canvas.captureStream(fps); 
+      const tracks=[...canvasStream.getVideoTracks()]; 
+      if(destNode){ 
+        const a=destNode.stream.getAudioTracks(); 
+        if(a.length) tracks.push(a[0]); 
+      } 
+      return new MediaStream(tracks); 
+    }
+    
+    function pickMime(){ 
+      const candidates=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm']; 
+      for(const type of candidates){ 
+        if(MediaRecorder.isTypeSupported(type)) return type; 
+      } 
+      return ''; 
+    }
+
+    els.start.addEventListener('click', async()=>{ 
+      if(!els.video.src) return; 
+      
+      clearStatus();
+      
+      // Check if MP4 is selected and FFmpeg needs to be loaded
+      if(els.format.value === 'mp4' && !ffmpegLoaded) {
+        try {
+          await loadFFmpeg();
+        } catch (error) {
+          showStatus('Cannot start recording: FFmpeg failed to load. Try WEBM format instead.', 'error');
+          return;
+        }
+      }
+      
+      await setupAudioGraph(); 
+      if(audioCtx.state==='suspended') await audioCtx.resume(); 
+      
+      try{ 
+        await els.video.play(); 
+      }catch{}
+      
+      const stream=getMixedStream(); 
+      const mimeType=pickMime(); 
+      recordedChunks=[]; 
+      
+      const recOpts={
